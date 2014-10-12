@@ -19,13 +19,10 @@ class Router extends Object {
     if ($status) {
       $dbg = '';
       switch ($status) {
-        //case yafa\YAFA::CONTROLLER_UNKNOWN_ACTION:
-        case 'unknown_action':
+        case Paja::CONTROLLER_UNKNOWN_ACTION:
           $dbg = yafa\__('Unknown controller action.');
           break;
-        //case YAFA::CONTROLLER_MISSING_ACTION:
-        //case 'missing_action':
-        case \holisticagency\core\Paja::MISSING_ACTION:
+        case Paja::CONTROLLER_MISSING_ACTION:
 //          $this->_missing_controller_action();
 //          $sec_status = yafa\yafa_controller()->controll();
 //          if ($sec_status) {

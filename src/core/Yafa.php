@@ -7,7 +7,7 @@ namespace holisticagency\yafa\core;
  * @author Panajotis Zamos <aqw1137@gmail.com>
  * @since Version 0.0.5
  */
-abstract class YAFA {
+class Yafa {
   /**
    * config key for use in cache
    */

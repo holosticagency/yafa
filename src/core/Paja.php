@@ -1,5 +1,5 @@
 <?php
-namespace holisticagency\core;
+namespace holisticagency\yafa\core;
 /**
  * Description of Paja
  *
@@ -7,5 +7,6 @@ namespace holisticagency\core;
  */
 class Paja {
 
-  const MISSING_ACTION = 'missing_action';
+  const CONTROLLER_UNKNOWN_ACTION = 'unknown_action';
+  const CONTROLLER_MISSING_ACTION = 'missing_action';
 }

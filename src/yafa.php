@@ -36,6 +36,8 @@ namespace holisticagency\yafa;
 function _YAFA_(){}
 
 //set_error_handler("yafa_error_handler");
+//set_error_handler([new asd(),"yafa_error_handler"]);
+
 define('YAFA_VERSION', '0.4.0');
 /**
  * no debug
@@ -758,6 +760,7 @@ final class YafaDebug {
 
 }
 
+class asd{
 function yafa_error_handler($errno, $errstr, $errfile, $errline){
   if (!(error_reporting() & $errno)) {
     // This error code is not included in error_reporting
@@ -806,4 +809,5 @@ function yafa_error_handler($errno, $errstr, $errfile, $errline){
   }
 
   return true;
+}
 }
