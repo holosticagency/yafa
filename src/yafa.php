@@ -12,7 +12,7 @@
  * </p>
  *
  * @package yafa_core
- * @version 0.3.0
+ * @version 0.4.0
  * @author panajotis zamos [aqw137@gmail.com]
  * @copyright	Copyright (c) 2011-2014, PLZ, Inc.
  * @license http://opensource.org/licenses/MIT MIT license
@@ -26,30 +26,17 @@
  *   <li>0.1.0 : mart. 2012. - </li>
  *   <li>0.2.0 : jan. 2013. - </li>
  *   <li>0.3.0 : avg. 2014. - </li>
+ *   <li>0.4.0 : oct. 2014. - </li>
  * </ul>
 NOTE: last version should be the same as defined in YAFA_VERSION below
- * </p>
- * <p>
- * repository info:
- * <ul>
- *   <li>$Revision$</li>
- *   <li>$Date$</li>
- *   <li>$Id$</li>
- *   <li>$Author$</li>
- * </ul>
  * </p>
  */
 namespace holisticagency\yafa;
 
-class yafa{
-  static function foo() {
-    exit('thanks for flying yafa airways ;)');
-  }
-}
-
 function _YAFA_(){}
-set_error_handler('yafa_error_handler');
-define('YAFA_VERSION', '0.3.0');
+
+//set_error_handler("yafa_error_handler");
+define('YAFA_VERSION', '0.4.0');
 /**
  * no debug
  */
@@ -63,6 +50,7 @@ define('YAFA_DEBUG_XPROFILE', 4);
 
 $holder = new YafaHolder();
 $holder->hold('debug', new YafaDebug());
+
 //yafa_debug()->setLevel(YAFA_DEBUG_XPROFILE);
 //yafa_debug()->setLevel(YAFA_DEBUG_DEV);
 
@@ -95,20 +83,18 @@ if (!defined('YAFA_SYS_PATH')) { define('YAFA_SYS_PATH', ROOT . DS . YAFA_SYS_DI
 if (!defined('YAFA_VENDOR_PATH')) { define('YAFA_VENDOR_PATH', ROOT . DS . YAFA_VENDOR_DIR . DS);}
 define('YAFA_API_PATH', YAFA_SYS_PATH . YAFA_API_DIR . DS);
 
-require_once(YAFA_SYS_PATH . 'YafaInterfaces.php'); // load core yafa interfaces
-require_once(YAFA_SYS_PATH . 'YafaCoreClasses.php'); // load core yafa classes
-require_once(YAFA_API_PATH . 'YafaApiClasses.php'); // load yafa api classes
-require_once(YAFA_SYS_PATH . 'YafaDefaultClasses.php'); // load default yafa classes
-require_once(YAFA_SYS_PATH . 'YafaLoader.php'); // load core yafa loader
+//require_once(YAFA_SYS_PATH . 'YafaInterfaces.php'); // load core yafa interfaces
+//require_once(YAFA_SYS_PATH . 'YafaCoreClasses.php'); // load core yafa classes
+//require_once(YAFA_API_PATH . 'YafaApiClasses.php'); // load yafa api classes
+//require_once(YAFA_SYS_PATH . 'YafaDefaultClasses.php'); // load default yafa classes
+//require_once(YAFA_SYS_PATH . 'YafaLoader.php'); // load core yafa loader
 
-$holder->hold('null', new \yafa\core\Dummy());
-$holder->hold('loader', new \yafa\Loader());
-yafa_loader()->loadDefaultYafaClasses();
-yafa_loader()->loadYapiClasses();
+$holder->hold('null', new core\Dummy);
+$holder->hold('loader', new core\Loader());
 
-if (file_exists(YAFA_API_PATH . 'yapis.php')) {
-  include_once(YAFA_API_PATH . 'yapis.php');
-}
+//yafa_loader()->loadDefaultYafaClasses();
+//yafa_loader()->loadYapiClasses();
+
 if (file_exists(YAFA_APP_PATH . 'local.init.php')) {
   include_once(YAFA_APP_PATH . 'local.init.php');
 }
@@ -119,14 +105,14 @@ if (file_exists(YAFA_APP_PATH . 'init.php')) {
 //dbg(yafa_debug()->defined());
 
 
-$holder->hold('requester', new \yafa\core\Requester()); // start requester
-$holder->hold('responder', new \yafa\core\Responder()); // and start responder
+$holder->hold('requester', new core\Requester()); // start requester
+$holder->hold('responder', new core\Responder()); // and start responder
 
-$holder->hold('application', new \yafa\core\Application());
+//$holder->hold('application', new A);
 
-yafa_application()->run(); // finaly, run application
+//yafa_application()->run(); // finaly, run application
 
-yafa_debug()->end_xprofile();
+//yafa_debug()->end_xprofile();
 //timer('app',0,1);
 /**
  * returns yafa class holder
@@ -135,7 +121,7 @@ yafa_debug()->end_xprofile();
  * @return YafaHolder
  */
 function yafa_holder() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder;
 }
 
@@ -143,10 +129,10 @@ function yafa_holder() {
  * returns yafa Loader class
  * @package yafa_holders
  * @since		0.0.1
- * @return \yafa\Loader
+ * @return holisticagency\yafa\core\Loader
  */
 function yafa_loader() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('loader');
 }
 
@@ -157,7 +143,9 @@ function yafa_loader() {
  * @return YafaDebug
  */
 function yafa_debug() {
-  global $holder;
+  //global $holder;
+  $holder = new YafaHolder();
+
   return $holder->get('debug');
 }
 
@@ -165,32 +153,34 @@ function yafa_debug() {
  * returns yafa Application class
  * @package yafa_holders
  * @since		0.0.5
- * @return yafa\core\Application
+ * @return holisticagency\yafa\core\Application
  */
 function yafa_application() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('application');
 }
 
 /**
  * returns yafa Db class
  * @package yafa_holders
+ * @deprecated since version 0.4.0
  * @since		0.0.1
- * @return yafa\core\Db
+ * @return holisticagency\yafa\core\Db
  */
 function yafa_db() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('db');
 }
 
 /**
  * returns yafa Data class
  * @package yafa_holders
+ * @deprecated since version 0.4.0
  * @since		0.0.6
  * @return yafa\core\Data
  */
 function yafa_data() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('data');
 }
 
@@ -198,10 +188,10 @@ function yafa_data() {
  * return yafa router class
  * @package yafa_holders
  * @since		0.0.1
- * @return \yafa\core\Router
+ * @return holisticagency\yafa\core\Router
  */
 function yafa_router() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('router');
 }
 
@@ -209,10 +199,10 @@ function yafa_router() {
  * return yafa requester class
  * @package yafa_holders
  * @since		0.0.4
- * @return \yafa\core\Requester
+ * @return holisticagency\yafa\core\Requester
  */
 function yafa_requester() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('requester');
 }
 
@@ -220,32 +210,34 @@ function yafa_requester() {
  * return yafa responder class
  * @package yafa_holders
  * @since		0.0.4
- * @return \yafa\core\Responder
+ * @return holisticagency\yafa\core\Responder
  */
 function yafa_responder() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('responder');
 }
 
 /**
  * return yafa common class
  * @package yafa_holders
+ * @deprecated since version 0.4.0
  * @since		0.0.1
  * @return \yafa\core\Common
  */
 function yafa_common() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('common');
 }
 
 /**
  * return yafa user class
  * @package yafa_holders
+ * @deprecated since version 0.4.0
  * @since		0.0.3
  * @return \yafa\core\User
  */
 function yafa_user() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('user');
 }
 
@@ -253,10 +245,10 @@ function yafa_user() {
  * return yafa config class
  * @package yafa_holders
  * @since		0.0.3
- * @return \yafa\core\Config
+ * @return holisticagency\yafa\core\Config
  */
 function yafa_config() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('config');
 }
 
@@ -264,10 +256,10 @@ function yafa_config() {
  * return yafa cache class
  * @package yafa_holders
  * @since		0.0.3
- * @return \yafa\core\Cache
+ * @return holisticagency\yafa\core\Cache
  */
 function yafa_cache() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('cache');
 }
 
@@ -275,10 +267,10 @@ function yafa_cache() {
  * return yafa controller class
  * @package yafa_holders
  * @since		0.0.3
- * @return \yafa\Interfaces\YafaController
+ * @return holisticagency\yafa\core\interfaces\YafaController
  */
 function yafa_controller() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('controller');
 }
 
@@ -286,10 +278,10 @@ function yafa_controller() {
  * return yafa language class
  * @package yafa_holders
  * @since		0.0.1
- * @return \yafa\core\Language
+ * @return holisticagency\yafa\core\Language
  */
 function yafa_language() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('language');
 }
 
@@ -297,10 +289,10 @@ function yafa_language() {
  * return yafa session class
  * @package yafa_holders
  * @since		0.0.6
- * @return \yafa\core\Session
+ * @return holisticagency\yafa\core\Session
  */
 function yafa_session() {
-  global $holder;
+  $holder = new YafaHolder();
   return $holder->get('session');
 }
 
@@ -382,28 +374,30 @@ function dbgx() {
  */
 final class YafaHolder {
 
-  private $_holding = array();
+  static private $_holding = array();
 
   /**
    *
    * @param type $name
    * @param type $class
+   * @deprecated since version 0.4.0
    * @return type
    */
-  function yapi_hold($name,  yafa\interfaces\YafaApi $class) {
+  function yapi_hold($name,  holisticagency\yafa\core\interfaces\YafaApi $class) {
     return $this->hold($name, $class);
   }
   function hold($name, $class) {
-    if (isset($this->_holding[$name])) {
+    if (isset(self::$_holding[$name])) {
       \trigger_error("Already holding $name.", \E_USER_WARNING);
       return false;
     }
-    $this->_holding[$name] = $class;
+    self::$_holding[$name] = $class;
+
     return true;
   }
 
   function replace($name, $class) {
-    $this->_holding[$name] = $class;
+    self::$_holding[$name] = $class;
     return true;
   }
 
@@ -413,7 +407,7 @@ final class YafaHolder {
    * @return type
    */
   function get($name) {
-    if (!isset($this->_holding[$name])) {
+    if (!isset(self::$_holding[$name])) {
       $msg = "Not holding $name.";
       $line = debug_backtrace();
       $k = 1;
@@ -430,9 +424,9 @@ final class YafaHolder {
       //\trigger_error($msg, \E_USER_ERROR);
       \trigger_error($msg, \E_USER_WARNING);
 
-      return $this->_holding['null'];
+      return self::$_holding['null'];
     }
-    return $this->_holding[$name];
+    return self::$_holding[$name];
 //    switch ($name) {
 //      case 'loader': return $this->_loader; break;
 //      case 'router': return $this->_router; break;
@@ -440,7 +434,7 @@ final class YafaHolder {
 //    }
   }
   function get_all() {
-    return $this->_holding;
+    return self::$_holding;
   }
 
 }
@@ -660,12 +654,15 @@ final class YafaDebug {
         $content .= "$_b on line: " . $tab;
         $content .= $line[$_level]['line'] . $tab;
         $content .= " with: \t";
-        if (isset($line[$_level]['class']))
+        if (isset($line[$_level]['class'])) {
           $content .= $line[$_level]['class'];
-        if (isset($line[$_level]['type']))
+        }
+        if (isset($line[$_level]['type'])) {
           $content .= $line[$_level]['type'];
-        if (isset($line[$_level]['function']))
+        }
+        if (isset($line[$_level]['function'])) {
           $content .= $line[$_level]['function'] . $tab;
+        }
       }else {
         $content .= "$nl $nl $tab no 'file' or 'line' index in \$line[$_level] = ";
       }
@@ -810,4 +807,3 @@ function yafa_error_handler($errno, $errstr, $errfile, $errline){
 
   return true;
 }
-?>
