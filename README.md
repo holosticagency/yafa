@@ -8,8 +8,8 @@ yafa consist of 4 parts:
 
 1. yafa core (requester, responder, router, loader...)
 2. yafa api [yapi] (internal api used by core and applications)
-3. vendor (libs used from core and yapi, it's not really part of yafa but yafa depend on it)
-4. apps (create one of your own or use/fork some from [bitbucket.org/plz][0.5])
+3. ~~vendor (libs used from core and yapi, it's not really part of yafa but yafa depend on it)~~
+4. ~~apps (create one of your own or use/fork some from [bitbucket.org/plz][0.5])~~
 
 yafa core and yafa api are in one repository while vendor and app have there own.
 
