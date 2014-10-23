@@ -16,7 +16,7 @@ yafa core and yafa api are in one repository while vendor and app have there own
 ###`yafa core`
 yafa core is hart of any yafa project and is relatively small, it has only couple of php files with sum of LOC less then 2k. yafa core should start application, handle request and respond and delegate all other stuff to app.
 
-###`yapi`
+###`yapi`depricated
 yafa api or yapi is a set of 'mini applications' that are used by yafa core and yafa applications for tasks like caching, user authentication and authorization, string translation, layout rendering, config etc.
 
 core and apps communicate with each yapi using a standard set of methods and each yapi must respond in the same way (see yapi/README) each yapi can have multiple versions and config will determine which will be used.
